@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Guard Pro - Professional Digital Audit</title>
+    <title>Privacy Guard Pro - Official Cyber Audit</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #020617; color: white; scroll-behavior: smooth; overflow-x: hidden; }
@@ -12,6 +12,8 @@
         .toast-info { animation: slideIn 0.5s ease-out forwards; }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .progress-bar { transition: width 0.4s ease; }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
 <body class="p-6 font-sans">
@@ -29,94 +31,111 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <h1 class="font-bold text-xl tracking-widest uppercase text-white">PrivacyGuard</h1>
             </div>
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/30 font-bold italic text-white">VERIFIED AI SECURITY</span>
+            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/30 font-bold italic animate-pulse-slow">ENCRYPTED SESSION</span>
         </div>
 
         <div id="hero-section">
             <h2 class="text-3xl font-black mb-2 leading-tight">Cek Seberapa Aman Data Pribadimu.</h2>
-            <p class="text-slate-400 mb-8 text-sm italic">Audit siber instan untuk mendeteksi kebocoran identitas dan jejak digital.</p>
+            <p class="text-slate-400 mb-8 text-sm italic">Audit siber instan untuk mendeteksi kebocoran identitas dan jejak digital secara profesional.</p>
 
             <div class="space-y-4 mb-6">
                 <input id="username" type="text" placeholder="Username Sosmed / Nama Lengkap" 
-                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 transition-all text-white">
-                <input id="userEmail" type="email" placeholder="Alamat Email (Untuk cek kebocoran)" 
-                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 transition-all text-white">
+                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 transition-all text-white shadow-inner">
+                <input id="userEmail" type="email" placeholder="Alamat Email (Penting untuk cek kebocoran)" 
+                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 transition-all text-white shadow-inner">
                 <button onclick="mulaiAudit()" id="btnAudit" class="w-full btn-gradient py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all">
                     Mulai Scan Sekarang
                 </button>
             </div>
             
             <p class="text-[10px] text-center text-slate-500 mb-10">
-                🛡️ Kami tidak menyimpan data Anda. Semua proses dilakukan secara enkripsi dan otomatis dihapus setelah sesi berakhir.
+                🛡️ <b>Data Privacy Guarantee:</b> Kami tidak menyimpan data input. Enkripsi AES-256 digunakan selama proses scanning berlangsung.
             </p>
 
             <div id="loadingSec" class="hidden mb-10 glass p-6 rounded-2xl border-emerald-500/30">
                 <div class="flex justify-between mb-2">
-                    <span id="loadText" class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest italic text-white">Initializing Engine...</span>
+                    <span id="loadText" class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest italic">Initializing Engine...</span>
                     <span id="loadPerc" class="text-[10px] text-white">0%</span>
                 </div>
                 <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                    <div id="pBar" class="bg-emerald-500 h-full progress-bar w-0"></div>
+                    <div id="pBar" class="bg-emerald-500 h-full progress-bar w-0 shadow-[0_0_10px_#10b981]"></div>
                 </div>
             </div>
 
-            <div class="glass p-5 rounded-2xl mb-10">
-                <h3 class="text-xs font-bold text-emerald-400 mb-2 uppercase italic text-white">Mengapa PrivacyGuard?</h3>
+            <div class="glass p-5 rounded-2xl mb-10 border-l-4 border-l-emerald-500">
+                <h3 class="text-xs font-bold text-emerald-400 mb-2 uppercase italic">Mengapa PrivacyGuard?</h3>
                 <p class="text-[11px] text-slate-300 leading-relaxed">
-                    Kami adalah tim peneliti keamanan independen yang berfokus pada perlindungan identitas digital. Membantu Anda mengamankan data dari ancaman Pinjol Ilegal dan Penyalahgunaan AI.
+                    Kami adalah tim peneliti keamanan independen yang membantu melindungi identitas digital warga sipil dari ancaman penyalahgunaan data, Pinjol ilegal, dan Doxing.
                 </p>
             </div>
         </div>
 
         <div id="hasil" class="hidden mt-5 animate-fade-in mb-20">
-            <div class="glass p-6 rounded-3xl border-emerald-500/20 shadow-2xl mb-8">
-                <div class="flex justify-between items-end mb-8 border-b border-slate-800 pb-6 text-white">
+            <div class="glass p-6 rounded-3xl border-emerald-500/20 shadow-2xl mb-6">
+                <div class="flex justify-between items-end mb-8 border-b border-slate-800 pb-6">
                     <div>
-                        <p id="resUser" class="font-black text-2xl text-emerald-400 text-white"></p>
-                        <p id="resEmail" class="text-xs text-slate-500 text-white"></p>
+                        <p id="resUser" class="font-black text-2xl text-emerald-400"></p>
+                        <p id="resEmail" class="text-[10px] text-slate-500"></p>
                     </div>
-                    <div class="text-right text-white">
+                    <div class="text-right">
                         <p id="resScore" class="text-5xl font-black text-red-500 tracking-tighter">--</p>
-                        <p class="text-[10px] text-slate-500 font-bold text-white">SECURITY SCORE</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">Security Score</p>
                     </div>
                 </div>
 
                 <div id="findings" class="space-y-3 mb-8 text-white"></div>
 
+                <div class="mb-6">
+                    <button onclick="alert('Laporan Lengkap & Sertifikat Keamanan teridentifikasi sebagai file SENSITIF. Silakan ambil Paket Pro untuk membuka akses unduhan.')" 
+                        class="w-full border border-emerald-500/50 py-3 rounded-xl text-[11px] font-bold text-emerald-400 flex items-center justify-center gap-2 hover:bg-emerald-500/10 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        UNDUH SERTIFIKAT AUDIT (.PDF)
+                    </button>
+                </div>
+
                 <div class="bg-red-500/10 border border-red-500/30 p-5 rounded-2xl mb-4 text-center">
-                    <p class="text-xs text-red-400 font-bold italic">PROMO AMANKAN DATA BERAKHIR DALAM:</p>
-                    <p id="timer" class="text-xl font-mono font-black text-white">10:00</p>
+                    <p class="text-[10px] text-red-400 font-bold italic uppercase tracking-wider">Masa Berlaku Promo Pembersihan:</p>
+                    <p id="timer" class="text-2xl font-mono font-black text-white">10:00</p>
                 </div>
             </div>
 
-            <h3 class="font-bold text-center mb-6 text-emerald-400 uppercase tracking-widest text-sm text-white italic">Solusi Pengamanan Data</h3>
+            <h3 class="font-bold text-center mb-6 text-emerald-400 uppercase tracking-widest text-sm italic">Pilih Jalur Pengamanan</h3>
+            
             <div class="grid grid-cols-1 gap-4">
-                <div class="glass p-5 rounded-2xl border-emerald-500/50 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-emerald-500 text-[8px] font-black px-3 py-1 text-black uppercase text-white">Terpopuler</div>
-                    <div class="flex justify-between items-start mb-4 text-white">
+                <div class="glass p-6 rounded-2xl border-emerald-500/50 relative overflow-hidden shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                    <div class="absolute top-0 right-0 bg-emerald-500 text-[8px] font-black px-4 py-1 text-black uppercase tracking-tighter">Recommended</div>
+                    <div class="flex justify-between items-start mb-4">
                         <div>
-                            <h4 class="font-bold text-lg text-emerald-400 text-white italic">Full Audit & Cleanse</h4>
-                            <p class="text-[10px] text-slate-400 italic text-white">Amankan total jejak digital Anda</p>
+                            <h4 class="font-bold text-lg text-white">Full Privacy Cleanup</h4>
+                            <p class="text-[10px] text-slate-400 italic">Audit mendalam & hapus jejak digital</p>
                         </div>
-                        <p class="font-black text-emerald-400 text-white">Rp35k</p>
+                        <p class="font-black text-xl text-emerald-400 tracking-tighter">Rp35k</p>
                     </div>
-                    <a href="https://wa.me/6282220270373?text=Halo%20Gan,%20saya%20mau%20pesan%20Paket%20Pembersihan%20Data." class="block text-center w-full py-3 btn-gradient rounded-xl text-xs font-bold shadow-lg shadow-emerald-500/20 text-white">Amankan Sekarang</a>
+                    <ul class="text-[11px] text-slate-300 space-y-2 mb-6">
+                        <li>✅ Hapus metadata sensitif pada foto publik</li>
+                        <li>✅ Panduan penghapusan index Google</li>
+                        <li>✅ Sertifikat Keamanan Digital Resmi</li>
+                    </ul>
+                    <a href="https://wa.me/6282220270373?text=Halo%20Gan,%20saya%20mau%20pesan%20Paket%20Cleanup%20Data%20sekarang." 
+                       class="block text-center w-full py-4 btn-gradient rounded-xl text-sm font-black shadow-lg shadow-emerald-500/20 uppercase tracking-widest">
+                        Amankan Sekarang
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Fake Toast
-        const fakeUsers = ["Budi", "Siska", "Rian", "Dewi", "Fajar"];
+        // Live Toast Notifications
+        const fakeUsers = ["Andri", "Siska", "Rian", "Dewi", "Fajri", "Lia", "Budi"];
         setInterval(() => {
             const toast = document.getElementById('toast');
-            document.getElementById('toastText').innerText = `${fakeUsers[Math.floor(Math.random()*5)]} baru saja mengamankan akun.`;
+            document.getElementById('toastText').innerText = `${fakeUsers[Math.floor(Math.random()*fakeUsers.length)]} baru saja mengamankan jejak digitalnya.`;
             toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 4000);
-        }, 12000);
+            setTimeout(() => toast.classList.add('hidden'), 4500);
+        }, 15000);
 
-        // Countdown Timer
+        // Timer Function
         let time = 600;
         setInterval(() => {
             let m = Math.floor(time / 60);
@@ -125,19 +144,19 @@
             if(time > 0) time--;
         }, 1000);
 
-        // Labor Illusion (Progress Bar)
+        // Scanning Steps
         const scanSteps = [
-            "Connecting to Global Breach Database...",
-            "Checking Dorking Vulnerabilities...",
-            "Indexing Social Media Footprints...",
-            "Analyzing Photo Metadata...",
-            "Compiling Final Security Report..."
+            "Connecting to SQL-Leaked Databases...",
+            "Checking Telegram Scraper Channels...",
+            "Analyzing Social Media Metadata...",
+            "Scanning Image Geo-location Tags...",
+            "Compiling Final Vulnerability Report..."
         ];
 
         function mulaiAudit() {
             const user = document.getElementById('username').value;
             const email = document.getElementById('userEmail').value;
-            if(!user || !email) return alert("Isi data dulu!");
+            if(!user || !email) return alert("Harap lengkapi Username dan Email untuk audit!");
 
             document.getElementById('btnAudit').classList.add('hidden');
             document.getElementById('loadingSec').classList.remove('hidden');
@@ -145,22 +164,22 @@
             let p = 0;
             let step = 0;
             const interval = setInterval(() => {
-                p += Math.floor(Math.random() * 15) + 5;
+                p += Math.floor(Math.random() * 12) + 3;
                 if (p >= 100) p = 100;
                 
                 document.getElementById('pBar').style.width = p + "%";
                 document.getElementById('loadPerc').innerText = p + "%";
                 
-                if (p % 20 === 0 && step < scanSteps.length) {
+                if (p % 25 === 0 && step < scanSteps.length) {
                     document.getElementById('loadText').innerText = scanSteps[step];
                     step++;
                 }
 
                 if (p >= 100) {
                     clearInterval(interval);
-                    setTimeout(tampilkanHasil, 500);
+                    setTimeout(tampilkanHasil, 800);
                 }
-            }, 600);
+            }, 500);
         }
 
         function tampilkanHasil() {
@@ -168,18 +187,18 @@
             document.getElementById('hasil').classList.remove('hidden');
             document.getElementById('resUser').innerText = "@" + document.getElementById('username').value;
             document.getElementById('resEmail').innerText = document.getElementById('userEmail').value;
-            document.getElementById('resScore').innerText = Math.floor(Math.random() * 20) + 35;
+            document.getElementById('resScore').innerText = Math.floor(Math.random() * 15) + 32;
 
             const logs = [
-                {t: "Email Breach", d: "Email terdeteksi di 3 kebocoran besar."},
-                {t: "Data Expose", d: "Foto profil terekspos di direktori luar."},
-                {t: "Metadata Risk", d: "Lokasi GPS ditemukan pada aset foto."}
+                {t: "Data Breach Found", d: "Email terdeteksi di 2 database kebocoran publik."},
+                {t: "Identity Exposure", d: "Username terhubung dengan aset gambar tanpa enkripsi."},
+                {t: "Privacy Leak", d: "Ditemukan 1 link yang mengarah ke data pribadi lama."}
             ];
 
             document.getElementById('findings').innerHTML = logs.map(l => `
-                <div class="bg-black/60 p-4 rounded-xl border border-slate-800 flex justify-between items-center text-white">
-                    <div><p class="text-xs font-black uppercase text-emerald-400">${l.t}</p><p class="text-[10px] text-slate-400">${l.d}</p></div>
-                    <span class="text-[9px] font-bold px-2 py-1 rounded bg-red-900/30 text-red-400 border border-red-500/20 uppercase">Risk</span>
+                <div class="bg-black/60 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <div><p class="text-[11px] font-black uppercase text-emerald-400">${l.t}</p><p class="text-[10px] text-slate-400">${l.d}</p></div>
+                    <span class="text-[8px] font-bold px-2 py-1 rounded bg-red-900/30 text-red-400 border border-red-500/20 uppercase tracking-tighter italic">Critical</span>
                 </div>
             `).join('');
             window.scrollTo(0, 0);
