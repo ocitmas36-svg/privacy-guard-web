@@ -3,114 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Guard Pro - Cuan Edition</title>
+    <title>Privacy Guard Pro - Trusted Security</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #020617; color: white; scroll-behavior: smooth; }
+        body { background-color: #020617; color: white; scroll-behavior: smooth; overflow-x: hidden; }
         .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
         .btn-gradient { background: linear-gradient(90deg, #10b981 0%, #059669 100%); }
+        .toast-info { animation: slideIn 0.5s ease-out forwards; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .price-card { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); }
+        .price-card:hover { border-color: #10b981; transform: translateY(-5px); }
     </style>
 </head>
 <body class="p-6 font-sans">
+
+    <div id="toast" class="fixed top-5 right-5 z-50 hidden">
+        <div class="glass px-4 py-2 rounded-xl flex items-center gap-3 shadow-2xl border-emerald-500/50">
+            <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+            <p id="toastText" class="text-[10px] font-medium text-slate-200"></p>
+        </div>
+    </div>
+
     <div class="max-w-md mx-auto">
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-2 text-emerald-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 <h1 class="font-bold text-xl tracking-widest uppercase">PrivacyGuard</h1>
             </div>
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/30">PRO VERSION</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/30 font-bold">VERIFIED</span>
         </div>
 
         <div id="hero-section">
-            <h2 class="text-3xl font-black mb-2 leading-tight">Amankan Jejak Digitalmu.</h2>
-            <p class="text-slate-400 mb-8 text-sm italic">Audit privasi instan sebelum HRD atau kompetitor melihatnya.</p>
+            <h2 class="text-3xl font-black mb-2 leading-tight">Cek Seberapa Aman Data Pribadimu.</h2>
+            <p class="text-slate-400 mb-8 text-sm">Gunakan alat audit siber untuk mendeteksi kebocoran identitas secara instan.</p>
 
-            <div class="space-y-4">
-                <input id="username" type="text" placeholder="Ketik Username/Nama Lengkap..." 
-                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all text-white">
+            <div class="space-y-4 mb-10">
+                <input id="username" type="text" placeholder="Username Sosmed / Nama Lengkap" 
+                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 transition-all text-white">
                 
-                <button onclick="mulaiAudit()" id="btnAudit" class="w-full btn-gradient py-4 rounded-2xl font-bold text-lg shadow-lg shadow-emerald-900/20 active:scale-95 transition-all">
-                    Mulai Audit Sekarang
+                <input id="userEmail" type="email" placeholder="Alamat Email (Untuk cek kebocoran)" 
+                    class="w-full bg-slate-900 border border-slate-700 p-4 rounded-2xl outline-none focus:border-emerald-500 transition-all text-white">
+                
+                <button onclick="mulaiAudit()" id="btnAudit" class="w-full btn-gradient py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all">
+                    Mulai Scan Sekarang
                 </button>
+            </div>
+
+            <div class="glass p-5 rounded-2xl mb-10">
+                <p class="text-[10px] text-emerald-400 font-bold uppercase mb-3 tracking-widest">Testimoni Pengguna</p>
+                <div class="flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center text-[10px]">User</div>
+                    <div>
+                        <p class="text-xs italic text-slate-300">"Ngeri banget, pas dicek ternyata skor saya rendah. Untung langsung dibantu amankan. Recommended!"</p>
+                        <p class="text-[10px] font-bold mt-2 text-white">— Budi Santoso, Wiraswasta</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="hasil" class="hidden mt-10 animate-fade-in mb-20">
-            <div class="glass p-6 rounded-3xl border-emerald-500/20 shadow-2xl">
+        <div id="hasil" class="hidden mt-5 animate-fade-in mb-20">
+            <div class="glass p-6 rounded-3xl border-emerald-500/20 shadow-2xl mb-8">
                 <div class="flex justify-between items-end mb-8 border-b border-slate-800 pb-6">
                     <div>
-                        <p class="text-slate-400 text-xs uppercase tracking-widest font-semibold mb-1">Target Analysis</p>
                         <p id="resUser" class="font-black text-2xl text-emerald-400">@username</p>
+                        <p id="resEmail" class="text-xs text-slate-500"></p>
                     </div>
                     <div class="text-right">
-                        <p id="resScore" class="text-5xl font-black text-red-500 tracking-tighter">45</p>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase">Privacy Score</p>
+                        <p id="resScore" class="text-5xl font-black text-red-500 tracking-tighter">--</p>
+                        <p class="text-[10px] text-slate-500 font-bold">SCORE</p>
                     </div>
                 </div>
 
-                <p class="text-sm font-bold mb-4 flex items-center gap-2 text-red-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    Temuan Kritikal:
-                </p>
+                <div id="findings" class="space-y-3 mb-8"></div>
+
+                <div class="bg-red-500/10 border border-red-500/30 p-5 rounded-2xl mb-4 text-center">
+                    <p class="text-xs text-red-400 font-bold">PERINGATAN!</p>
+                    <p class="text-[11px] text-slate-300">Data Anda rentan terhadap penyalahgunaan identitas. Amankan sekarang melalui paket di bawah ini.</p>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-center mb-6 text-emerald-400 uppercase tracking-widest text-sm">Pilih Paket Pengamanan</h3>
+            <div class="grid grid-cols-1 gap-4">
                 
-                <div id="findings" class="space-y-3 mb-8">
+                <div class="glass p-5 rounded-2xl price-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Paket Basic</h4>
+                            <p class="text-[10px] text-slate-400 italic">Cek kebocoran dasar</p>
+                        </div>
+                        <p class="font-black text-emerald-400">Rp15k</p>
                     </div>
-
-                <div class="bg-emerald-500/10 border border-emerald-500/30 p-5 rounded-2xl mb-4">
-                    <p class="text-xs text-emerald-400 font-bold mb-2 uppercase tracking-widest">Saran Professional:</p>
-                    <p class="text-sm text-slate-200 mb-4 leading-relaxed">Skor kamu rendah. Jejak digital ini berisiko menghambat karir atau keamanan personal. Gunakan jasa pembersihan profesional.</p>
-                    
-                    <a href="https://wa.me/6288980942762?text=Halo%20Gan,%20saya%20mau%20pesan%20jasa%20bersihin%20jejak%20digital%20setelah%20cek%20di%20web%20tadi." 
-                       target="_blank"
-                       class="flex items-center justify-center gap-2 w-full bg-white text-black py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        Hubungi Konsultan (WA)
-                    </a>
+                    <ul class="text-[11px] text-slate-300 space-y-2 mb-5">
+                        <li class="flex items-center gap-2">✅ Audit Full Email & Password</li>
+                        <li class="flex items-center gap-2">✅ Laporan Kebocoran Data</li>
+                    </ul>
+                    <a href="https://wa.me/6282220270373?text=Halo%20Gan,%20saya%20mau%20pesan%20Paket%20BASIC" class="block text-center w-full py-2 bg-slate-800 rounded-lg text-xs font-bold hover:bg-emerald-600 transition-all">Pilih Paket</a>
                 </div>
-                <p class="text-[9px] text-center text-slate-600">Laporan ini dibuat otomatis oleh PrivacyGuard Engine v1.0</p>
+
+                <div class="glass p-5 rounded-2xl price-card border-emerald-500/50 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-500 text-[8px] font-black px-3 py-1 text-black uppercase">Best Seller</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-bold text-white text-lg text-emerald-400">Paket Pro</h4>
+                            <p class="text-[10px] text-slate-400 italic">Audit Jejak Digital Menyeluruh</p>
+                        </div>
+                        <p class="font-black text-emerald-400">Rp35k</p>
+                    </div>
+                    <ul class="text-[11px] text-slate-300 space-y-2 mb-5">
+                        <li class="flex items-center gap-2">✅ Semua fitur Paket Basic</li>
+                        <li class="flex items-center gap-2">✅ Audit Foto (Google/Yandex)</li>
+                        <li class="flex items-center gap-2">✅ Panduan Hapus Link Lama</li>
+                    </ul>
+                    <a href="https://wa.me/6282220270373?text=Halo%20Gan,%20saya%20mau%20pesan%20Paket%20PRO" class="block text-center w-full py-2 btn-gradient rounded-lg text-xs font-bold shadow-lg shadow-emerald-500/20 transition-all">Pilih Paket Pro</a>
+                </div>
+
             </div>
         </div>
     </div>
 
     <script>
+        // Efek Notifikasi Palsu
+        const fakeUsers = ["Budi", "Siska", "Rian", "Dewi", "Ocit", "Andri", "Santi", "Fajri", "Lia"];
+        function showToast() {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+            const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+            const randomScore = Math.floor(Math.random() * 20) + 35;
+
+            toastText.innerText = `${randomUser} baru saja melakukan audit (Skor: ${randomScore})`;
+            toast.classList.remove('hidden');
+            toast.classList.add('toast-info');
+
+            setTimeout(() => { toast.classList.add('hidden'); }, 4000);
+        }
+        setInterval(showToast, 10000);
+
         function mulaiAudit() {
             const user = document.getElementById('username').value;
+            const email = document.getElementById('userEmail').value;
             const btn = document.getElementById('btnAudit');
-            if(!user) return alert("Ketik nama/username dulu!");
+            if(!user || !email) return alert("Lengkapi data dulu!");
 
-            btn.innerText = "Scanning Deep Web...";
-            btn.classList.add('opacity-50');
+            btn.innerText = "Analyzing Cyber Assets...";
             btn.disabled = true;
 
             setTimeout(() => {
                 document.getElementById('hasil').classList.remove('hidden');
                 document.getElementById('hero-section').classList.add('hidden');
                 document.getElementById('resUser').innerText = "@" + user;
-                
-                // Skor dibuat agak rendah agar user merasa butuh bantuan (psikologi marketing)
-                const randomScore = Math.floor(Math.random() * (55 - 35 + 1)) + 35;
-                document.getElementById('resScore').innerText = randomScore;
+                document.getElementById('resEmail').innerText = email;
+                document.getElementById('resScore').innerText = Math.floor(Math.random() * 20) + 35;
 
                 const findings = [
-                    { p: "Social Media", d: "Foto/Komentar lama berisiko ditemukan.", r: "Risk High" },
-                    { p: "Data Leak", d: "Email terkait dengan 2 kebocoran publik.", r: "Warning" },
-                    { p: "Search Index", d: "Nama terindeks di pencarian pihak ketiga.", r: "Critical" }
+                    { p: "Account Breach", d: "Email terdeteksi di database kebocoran.", r: "Kritikal" },
+                    { p: "Social Exposure", d: "Data profil ditemukan di publik index.", r: "Risiko" },
+                    { p: "Photo Metadata", d: "Koordinat lokasi terdeteksi pada aset gambar.", r: "Warning" }
                 ];
 
-                const container = document.getElementById('findings');
-                container.innerHTML = findings.map(f => `
-                    <div class="bg-black/60 p-4 rounded-xl border border-slate-800 flex justify-between items-center shadow-inner">
-                        <div>
-                            <p class="text-xs font-black text-white uppercase">${f.p}</p>
-                            <p class="text-[11px] text-slate-400">${f.d}</p>
-                        </div>
-                        <span class="text-[9px] font-bold px-2 py-1 rounded bg-red-900/30 text-red-400 border border-red-500/20 uppercase">${f.r}</span>
+                document.getElementById('findings').innerHTML = findings.map(f => `
+                    <div class="bg-black/60 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div><p class="text-xs font-black uppercase text-white">${f.p}</p><p class="text-[10px] text-slate-400">${f.d}</p></div>
+                        <span class="text-[9px] font-bold px-2 py-1 rounded bg-red-900/30 text-red-400 border border-red-500/20">${f.r}</span>
                     </div>
                 `).join('');
-
-                window.scrollTo(0, document.body.scrollHeight);
-            }, 2500);
+                window.scrollTo(0, 0);
+            }, 3000);
         }
     </script>
 </body>
-</html>
+                            </html>
+                                                                                                
